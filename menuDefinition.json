@@ -1,0 +1,76 @@
+{
+    "static-menu": {
+        "0": [
+            "Agenda de contactos",
+            "Seleccione mediante la letra correspondiente la operacion a realizar",
+            {
+                "1": ["Añadir un contacto","JE13"],
+                "2": ["Buscar un contacto","JE14"],
+                "3": ["Mostrar todos los contactos","AC15"],
+                "4": ["Editar un contacto","JM1"],
+                "5": ["Borrar un contacto","JE16"]
+            }
+        ],
+        "1": [
+            "Editar un contacto",
+            "Seleccione qué campo desea editar",
+            {
+                "1": ["Nombre","JE10"],
+                "2": ["Numero","JE11"],
+                "3": ["Correo","JE12"]
+            }
+        ],
+        "2": [
+            "Resultados de búsqueda",
+            "Decide si buscas algo más o si exportas el resultado",
+            {
+                "1": ["Guardar","AC15"],
+                "2": ["Volver a buscar","JE14"]
+            }
+        ]
+    },
+    "dynamic-menu": {
+        "10": [
+            "Editar nombre de contacto",
+            "Escribe el nuevo nombre de contacto",
+            "",
+            "Nuevo nombre:",
+            []
+        ],
+        "11": [
+            "Editar numero de telefono",
+            "Escribe el nuevo numero de telefono",
+            "",
+            "Nuevo número:",
+            []
+        ],
+        "12": [
+            "Editar e-mail",
+            "Escribe la nueva dirección de correo electrónico",
+            "",
+            "Nuevo correo:",
+            []
+        ],
+        "13": [
+            "Crear nuevo contacto",
+            "Llena cada campo del nuevo contacto",
+            "",
+            "",
+            []
+        ],
+        "14": [
+            "Buscar un contacto",
+            "Introduce el nombre del contacto que deseas buscar",
+            "Deja vacio para salir",
+            "Nombre de Contacto:",
+            []
+        ],
+        "16": [
+            "Eliminar un contacto",
+            "Introduce el ID del contacto a eliminar",
+            "",
+            "ID:",
+            []
+        ]
+    }
+}
