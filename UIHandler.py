@@ -253,7 +253,19 @@ class UIManager:
     def action(self, action_number):
         ######################################### Accion #10
         if action_number == 10:  # Cambiar nombre
+            if self.dh.isEmpty():
+                self.__exitAction()
+                self.stack.pop()
+                self.Error("No hay contactos que editar")
+                return
             id = self.getID()
+            while self.dh.exists(id)==False:
+                self.Error("No existe ese id. Deja vacio para salir")
+                self.reDraw()
+                id = self.getID()
+                if id=="":
+                    self.__exitAction()
+                    return
             sw = True
             antiguo_nombre = self.dh.getEntry(id, XML=False)[0][1]
             while sw:
@@ -268,7 +280,18 @@ class UIManager:
 
         ######################################### Accion #11
         if action_number == 11:  # Cambiar telefono
+            if self.dh.isEmpty():
+                self.Error("No hay contactos que editar")
+                self.__exitAction()
+                return
             id = self.getID()
+            while self.dh.exists(id)==False:
+                self.Error("No existe ese id. Deja vacio para salir")
+                self.reDraw()
+                id = self.getID()
+                if id=="":
+                    self.__exitAction()
+                    return
             sw = True
             antiguo_numero = self.dh.getEntry(id, XML=False)[0][2]
             while sw:
@@ -283,7 +306,18 @@ class UIManager:
 
         ######################################### Accion #12
         if action_number == 12:  # Cambiar correo
+            if self.dh.isEmpty():
+                self.Error("No hay contactos que editar")
+                self.__exitAction()
+                return
             id = self.getID()
+            while self.dh.exists(id)==False:
+                self.Error("No existe ese id. Deja vacio para salir")
+                self.reDraw()
+                id = self.getID()
+                if id=="":
+                    self.__exitAction()
+                    return
             sw = True
             antiguo_correo = self.dh.getEntry(id, XML=False)[0][3]
             while sw:

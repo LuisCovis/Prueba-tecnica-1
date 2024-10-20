@@ -36,6 +36,10 @@ class Database:
 
         return "\n".join(XML_object)
 
+    def isEmpty(self):
+        res = self.cur.execute("SELECT * FROM contactos")
+        return False if len(res.fetchall())>0 else True
+
     def emailCheck(self, mail: str):
         # La regla de regex tiene 3 grupos, el primero es la dirección, permite palabra, puntos y guiones hasta el @
         # El segundo grupo corresponde al dominio, permite varios sub dominios
