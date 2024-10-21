@@ -68,7 +68,7 @@
         "16": [
             "Eliminar un contacto",
             "Introduce el ID del contacto a eliminar",
-            "",
+            "Deja vacio para salir",
             "ID:",
             []
         ]

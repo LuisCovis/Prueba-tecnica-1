@@ -433,6 +433,9 @@ class UIManager:
             while sw:
                 self.reDraw()
                 id = self.readInput("")
+                if id == "":
+                    self.__exitAction()
+                    return
                 if not id.isnumeric():
                     self.Error("Inserte un valor numérico")
                     continue
