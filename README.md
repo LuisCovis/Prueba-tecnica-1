@@ -20,5 +20,5 @@ prueba técnica que evaluará la lógica de un programador en Python y XML, adem
 ## Puntos adicionales (opcional):
 * [✓] Implemente la capacidad de editar y eliminar contactos.
 * [✓] Utilice funciones y clases para organizar su código de manera eficiente.
-* Cree un archivo de registro (log) para registrar las operaciones realizadas por la aplicación.
+* [✓] Cree un archivo de registro (log) para registrar las operaciones realizadas por la aplicación.
 * [✓] Esta prueba técnica evaluará la capacidad del candidato para diseñar y desarrollar una aplicación Python que utilice SQLite para el almacenamiento de datos y XML para representarlos. Además, se evaluará su capacidad para manejar entradas de usuario y errores de manera efectiva.
