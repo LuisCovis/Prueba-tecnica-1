@@ -129,7 +129,8 @@ class UIManager:
             print("")
             return input("Opción:  ")
 
-    def __init__(self, dh):
+    def __init__(self, dh, logfile):
+        self.logfile = logfile
         self.debug = False
         self.unix = True if os.name != "nt" else False
         self.dh = dh
@@ -140,6 +141,12 @@ class UIManager:
         self.stack = [0]
         self.infoQueue = list()
         self.successQueue = list()
+    
+    def log(self,msg):
+        log = open(self.logfile,"a")
+        timestamp = datetime.datetime.now().strftime("[%Y-%m-%dT%H:%M:%S]")
+        log.write(f"{timestamp} {msg}\n")
+        log.close
 
     def __clearError(self):
         self.lastErr = ""
@@ -276,6 +283,7 @@ class UIManager:
                     self.Error("Introduce un nombre válido.")
             self.dh.editContact(id, "nombre", nuevo_nombre)
             self.__exitAction()
+            self.log(f"Se modifico el nombre en el contacto con ID {id}")
             return
 
         ######################################### Accion #11
@@ -302,6 +310,7 @@ class UIManager:
                     self.Error("Introduce un número válido.")
             self.dh.editContact(id, "telefono", nuevo_numero)
             self.__exitAction()
+            self.log(f"Se modifico el numero de telefono en el contacto con ID {id}")
             return
 
         ######################################### Accion #12
@@ -328,6 +337,7 @@ class UIManager:
                     self.Error("Introduce un e-mail válido.")
             self.dh.editContact(id, "email", nuevo_correo)
             self.__exitAction()
+            self.log(f"Se modifico la direccion de correo en el contacto con ID {id}")
             return
 
         ######################################### Accion #13
@@ -370,6 +380,7 @@ class UIManager:
             # Creación del nuevo contacto
             self.dh.addEntry(nombre, telefono, email)
             self.__exitAction()
+            self.log(f"Se creo un nuevo contacto: ({nombre}, {telefono}, {email})")
             return
 
         ######################################### Accion #14
@@ -378,11 +389,13 @@ class UIManager:
             while sw:
                 self.reDraw()
                 nombre = self.readInput("")
+                nombre = self.dh.sanitizeInput(nombre)
                 if nombre == "":
                     self.__exitAction()
                     return
                 self.clear()
                 self.titleBox(f'Resultados para "{nombre}". Guardar? [S/n]')
+                self.log(f"Se mostró los resultados de búsqueda para '{nombre}'")
                 query_result = self.dh.searchContact(nombre)
                 print(query_result)
                 res = input()
@@ -393,6 +406,7 @@ class UIManager:
                 f"./exports/XML_Export_{timestamp.strftime('%d%m%Y %H:%M%S')}.xml", "w"
             ) as export_path:
                 export_path.write(query_result)
+            self.log(f"Se guardó la búsqueda de un contacto. palabra de búsqueda: '{nombre}'")
             return
 
         ######################################### Accion #15
@@ -401,6 +415,7 @@ class UIManager:
             self.titleBox("Mostrando todos los contactos, guardar archivo XML? [S/n]")
             query_result = self.dh.listEntries()
             print(query_result)
+            self.log("Se mostraron todos los contactos")
             response = input()
             if response == "" or response.lower() == "s":
                 timestamp = datetime.datetime.now()
@@ -409,6 +424,7 @@ class UIManager:
                     "w",
                 ) as export_path:
                     export_path.write(query_result)
+                    self.log("Se guardo un xml con todos los contactos")
             return
 
         ######################################### Accion #16
@@ -435,7 +451,7 @@ class UIManager:
             if res == "" or res.lower() == "s":
                 self.dh.deleteContact(id)
                 self.success(f"Se eliminó exitosamente el contacto {id}")
-
+                self.log(f"Se elimino el contacto con id {id}")
             self.__exitAction()
             return
 

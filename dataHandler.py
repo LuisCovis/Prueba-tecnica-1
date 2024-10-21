@@ -10,7 +10,7 @@ class Database:
         self.startDatabase()
 
     # Limpia la entrada del usuario de cualquier caracter que permita inyección SQL o XML
-    def __sanitizeInput(self, user_input, alfabetico=True):
+    def sanitizeInput(self, user_input, alfabetico=True):
         # Debido a que el nombre no se rige por un patrón específico, es el mayor vector
         # de ataque, la regla de Regex se asegura que solo queden valores alfabeticos.
         if alfabetico:
@@ -55,7 +55,7 @@ class Database:
     def nameCheck(self, nombre: str):
         # Para el nombre se requiere que no sea muy corto ni muy largo
         # Dicha comparación se realiza luego de limpiar la entrada para evitar valores vacíos
-        nombre = self.__sanitizeInput(nombre)
+        nombre = self.sanitizeInput(nombre)
         return True if len(nombre) < 63 and len(nombre) >= 3 else False
 
     def startDatabase(self):
@@ -81,7 +81,7 @@ class Database:
         return True if len(fetch) >= 1 else False
 
     def addEntry(self, nombre: str, telefono: str, email: str):
-        nombre = self.__sanitizeInput(nombre)
+        nombre = self.sanitizeInput(nombre)
         self.cur.execute(
             f"INSERT INTO contactos (nombre,telefono,email) VALUES ('{nombre}','{telefono}','{email}')"
         )
@@ -102,9 +102,9 @@ class Database:
             new_value = self.phoneCheck(new_value)
             new_value = re.sub("-", " ", new_value[0])
         elif col_name== "nombre":
-            new_value = self.__sanitizeInput(new_value)
+            new_value = self.sanitizeInput(new_value)
         else:
-            new_value = self.__sanitizeInput(new_value,alfabetico=False)
+            new_value = self.sanitizeInput(new_value,alfabetico=False)
 
         self.cur.execute(
             f"UPDATE contactos SET {col_name}='{new_value}' WHERE id='{id}'"
